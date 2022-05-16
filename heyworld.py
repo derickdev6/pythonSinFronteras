@@ -1,5 +1,4 @@
-import re
-from flask import Flask, request
+from flask import Flask, request, url_for
 import sqlite3
 app = Flask(__name__)
 
@@ -41,7 +40,7 @@ def index():
     return "Hello world"
 
 @app.route('/user/<user_id>', methods=['GET'])
-def hi(user_id):
+def user(user_id):
     userdata = get_user_profile(user_id)
     return str(userdata)
 
@@ -55,6 +54,7 @@ def register():
         "gender": request.form['gender'],
         "avatar": request.form['avatar'],
     }
+    print(url_for('user', user_id=new_user['user_id']))
     print(new_user)
     print(request.form)
     return "Working"
